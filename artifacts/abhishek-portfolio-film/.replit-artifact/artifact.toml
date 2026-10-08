@@ -1,0 +1,29 @@
+kind = "video"
+videoAspectRatio = "16:9"
+previewPath = "/abhishek-portfolio-film/"
+title = "Abhishek Sharma — Portfolio Film"
+description = "A short looping animated film introducing Abhishek Sharma's developer-workspace portfolio and its verified AssetGuard and GitDocs projects."
+version = "1.0.0"
+id = "artifacts/abhishek-portfolio-film"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/abhishek-portfolio-film/" ]
+localPort = 18467
+
+[services.development]
+run = "pnpm --filter @workspace/abhishek-portfolio-film run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/abhishek-portfolio-film", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/abhishek-portfolio-film/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18467"
+BASE_PATH = "/abhishek-portfolio-film/"
