@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Abhishek Sharma | Portfolio"
+description = "A personal portfolio website for computer science student Abhishek Sharma, showcasing his education, generative AI training, AssetGuard project, technical skills, achievements, and contact information."
+version = "1.0.0"
+id = "artifacts/abhishek-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22982
+
+[services.development]
+run = "pnpm --filter @workspace/abhishek-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/abhishek-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/abhishek-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22982"
+BASE_PATH = "/"
